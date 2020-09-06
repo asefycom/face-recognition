@@ -36,15 +36,19 @@ test_face_code = face_recognition.face_encodings(imgTest)[0]
 # endregion
 
 
-isSame = face_recognition.compare_faces([shajarian_face_code, takhti_face_code], test_face_code)
-dist = face_recognition.face_distance([shajarian_face_code, takhti_face_code], test_face_code)
-print(isSame, dist)
+# region Face Recognition
+results = face_recognition.compare_faces([shajarian_face_code, takhti_face_code], test_face_code)
+distances = face_recognition.face_distance([shajarian_face_code, takhti_face_code], test_face_code)
+print(results, distances)
+# endregion
 
 
 # region Show Images
 imgShajarian01 = cv2.cvtColor(imgShajarian01,cv2.COLOR_RGB2BGR)
 imgTakhti = cv2.cvtColor(imgTakhti,cv2.COLOR_RGB2BGR)
 imgTest = cv2.cvtColor(imgTest,cv2.COLOR_RGB2BGR)
+cv2.putText(imgTest, f'{results[0]} {round(distances[0],2)}',
+            (0,50), cv2.FONT_HERSHEY_COMPLEX, 1, (255,0,255),2)
 cv2.imshow('Shajarian Training image', imgShajarian01)
 cv2.imshow('Takhti Training image', imgTakhti)
 cv2.imshow('Test image', imgTest)
