@@ -3,21 +3,24 @@ import face_recognition
 import os
 import numpy as np
 
+# region Vars
 path = 'images_pro'
 images = []
 names = []
-
 myList = os.listdir(path)
 # print(myList)
+# endregion
 
+# region Fetch Known Images
 for item in myList:
     curImage = cv2.imread(f'{path}/{item}')
     images.append(curImage)
     names.append(os.path.splitext(item)[0])
-
 # print(images)
 # print(names)
+# endregion
 
+# region Encode Known Images
 def findEncodings(images):
     encodeList = []
     for img in images:
@@ -26,13 +29,14 @@ def findEncodings(images):
         encodeList.append(encode)
     return encodeList
 
-
 known_encode_list = findEncodings(images)
 # print(len(known_encode_list))
 print("Encoding Completed!")
+# endregion
 
 cap = cv2.VideoCapture(0)
 
+# region Compare Frames with Known Images
 while True:
     success, frame = cap.read()
     frame_small = cv2.resize(frame, (0,0), None, 0.25, 0.25)
@@ -59,6 +63,7 @@ while True:
     cv2.imshow('webcam', frame)
     if cv2.waitKey(1) == ord('q'):
         break
+# endregion
 
 cap.release()
 cv2.destroyAllWindows()
