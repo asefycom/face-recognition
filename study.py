@@ -20,10 +20,11 @@ takhti_file = 'images/takhti.jpg'
 imgTakhti = face_recognition.load_image_file(takhti_file)
 takhti_face_loc = face_recognition.face_locations(imgTakhti)[0]
 print(takhti_face_loc)
-face01_rec = cv2.rectangle(imgTakhti, (takhti_face_loc[3],takhti_face_loc[0]),
+face02_rec = cv2.rectangle(imgTakhti, (takhti_face_loc[3],takhti_face_loc[0]),
                            (takhti_face_loc[1], takhti_face_loc[2]),(255,0,255),3)
 takhti_face_code = face_recognition.face_encodings(imgTakhti)[0]
 # endregion
+
 
 # region Test Image
 Test_file = 'images/shajarian02.jpg'
